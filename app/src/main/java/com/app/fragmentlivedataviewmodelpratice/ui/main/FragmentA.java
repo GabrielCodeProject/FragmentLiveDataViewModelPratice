@@ -18,9 +18,9 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.app.fragmentlivedataviewmodelpratice.CustomClickListener;
 import com.app.fragmentlivedataviewmodelpratice.R;
-import com.app.fragmentlivedataviewmodelpratice.dialog.operatorDialog;
+import com.app.fragmentlivedataviewmodelpratice.dialog.OperatorDialog;
 
-public class FragmentA extends Fragment implements operatorDialog.OperatorDialogListener {
+public class FragmentA extends Fragment implements OperatorDialog.OperatorDialogListener {
 
     public static final String TAG = "FragmentA";
     CustomClickListener btnClickListener;
@@ -89,14 +89,14 @@ public class FragmentA extends Fragment implements operatorDialog.OperatorDialog
     public void showOperator() {
         Bundle args = new Bundle();
         args.putString("test", "YOLO");
-        DialogFragment fragment = operatorDialog.newInstance();
+        DialogFragment fragment = OperatorDialog.newInstance();
         fragment.setArguments(args);
         fragment.show(getParentFragmentManager(), "operator");
     }
 
     @Override
     public void onEnterOperatorClick(DialogFragment dialogFragment) {
-        //EditText edOperator = dialogFragment.getActivity().findViewById(R.id.ed_operator);
+        EditText edOperator = dialogFragment.getActivity().findViewById(R.id.ed_operator);
         mMainViewModel.saveNewOperator("edOperator.getText().toString()");
     }
 }
