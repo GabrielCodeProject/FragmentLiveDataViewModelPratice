@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">FragmentLiveDataViewModelPratice</string>
+    <string name="saved">Save in viewmodel</string>
+</resources>
