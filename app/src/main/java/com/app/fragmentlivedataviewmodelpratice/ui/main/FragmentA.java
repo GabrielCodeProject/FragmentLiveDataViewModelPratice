@@ -99,13 +99,15 @@ public class FragmentA extends Fragment implements OperatorDialog.OperatorDialog
         args.putString("test", "YOLO");
         DialogFragment fragment = OperatorDialog.newInstance();
         fragment.setArguments(args);
+        fragment.setTargetFragment(this,0);
         fragment.show(getParentFragmentManager(), "operator");
     }
 
     @Override
     public void onEnterOperatorClick(DialogFragment dialogFragment) {
-        dialogFragment.getChildFragmentManager().findFragmentByTag(OperatorDialog.TAG);
-        EditText edOperator = dialogFragment.getActivity().findViewById(R.id.ed_operator);
-        mMainViewModel.saveNewOperator("edOperator.getText().toString()");
+//        Fragment fragment = dialogFragment.getChildFragmentManager().findFragmentByTag(OperatorDialog.TAG);
+        EditText edOperator = dialogFragment.getDialog().findViewById(R.id.ed_operator);
+        Log.d(TAG, "onEnterOperatorClick: " + edOperator.getText());
+        mMainViewModel.saveNewOperator(edOperator.getText().toString());
     }
 }
