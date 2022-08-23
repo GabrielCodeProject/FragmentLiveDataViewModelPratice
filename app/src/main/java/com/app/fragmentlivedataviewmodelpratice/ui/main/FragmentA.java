@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -25,9 +26,13 @@ public class FragmentA extends Fragment implements OperatorDialog.OperatorDialog
     public static final String TAG = "FragmentA";
     CustomClickListener btnClickListener;
     String btnNameArg;
+    String argOperator;
+    String argNaruto;
+    Boolean argIsWorking;
 
     MainViewModel mMainViewModel;
     TextView tv;
+
     public static FragmentA newInstance() {
 
         Bundle args = new Bundle();
@@ -53,7 +58,10 @@ public class FragmentA extends Fragment implements OperatorDialog.OperatorDialog
         if (getArguments() != null) {
             Log.d(TAG, "onCreateView: have args?");
             btnNameArg = getArguments().getString("btn_value");
-            Log.d(TAG, "onCreateView: " + btnNameArg);
+            argOperator = getArguments().getString("operator");
+            argNaruto = getArguments().getString("naruto");
+            argIsWorking = getArguments().getBoolean("is_working");
+            Log.d(TAG, "onCreateView: " + btnNameArg + " " + argOperator + " " + " " + argNaruto + " isWorking" + argIsWorking);
         }
 
         return inflater.inflate(R.layout.fragment_a, container, false);
@@ -80,9 +88,9 @@ public class FragmentA extends Fragment implements OperatorDialog.OperatorDialog
     public void onResume() {
         super.onResume();
         if (getArguments() != null) {
-            Log.d(TAG, "onCreateView: have args?");
-            btnNameArg = getArguments().getString("btn_value");
-            Log.d(TAG, "onCreateView: " + btnNameArg);
+            Log.d(TAG, "onResume: have args?");
+            String test = getArguments().getString("yolo");
+            Log.d(TAG, "onResume: " + test);
         }
     }
 
@@ -96,6 +104,7 @@ public class FragmentA extends Fragment implements OperatorDialog.OperatorDialog
 
     @Override
     public void onEnterOperatorClick(DialogFragment dialogFragment) {
+        dialogFragment.getChildFragmentManager().findFragmentByTag(OperatorDialog.TAG);
         EditText edOperator = dialogFragment.getActivity().findViewById(R.id.ed_operator);
         mMainViewModel.saveNewOperator("edOperator.getText().toString()");
     }

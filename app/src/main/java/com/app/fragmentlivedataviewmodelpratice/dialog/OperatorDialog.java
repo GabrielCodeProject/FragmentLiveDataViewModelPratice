@@ -17,6 +17,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
 
 import com.app.fragmentlivedataviewmodelpratice.R;
 import com.app.fragmentlivedataviewmodelpratice.ui.main.FragmentA;
@@ -24,7 +25,7 @@ import com.app.fragmentlivedataviewmodelpratice.ui.main.MainViewModel;
 
 public class OperatorDialog extends DialogFragment {
 
-    private static final String TAG = "operatorDialog";
+    public static final String TAG = "operatorDialog";
 
     public static OperatorDialog newInstance() {
         Bundle args = new Bundle();
@@ -44,16 +45,16 @@ public class OperatorDialog extends DialogFragment {
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         Activity activity = getActivity();
-//        setTargetFragment();
-//        try {
-//            if (context instanceof FragmentActivity) {
+//        setTargetFragment(getParentFragment(), FragmentManager.POP_BACK_STACK_INCLUSIVE);
+//        try {s
+//            if (context instanceof Activity) {
 //                listener = (OperatorDialogListener) activity.getFragmentManager().findFragmentByTag(FragmentA.TAG);
 //            }
 //        } catch (ClassCastException e) {
 //            throw new ClassCastException(activity.toString() + " must implement OperatorDialogListener");
 //        }
         try {
-            listener = (OperatorDialogListener) context;
+            listener = (OperatorDialogListener) getTargetFragment();
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString() + " must implement OperatorListener");
         }
@@ -76,7 +77,12 @@ public class OperatorDialog extends DialogFragment {
                     public void onClick(DialogInterface dialogInterface, int i) {
                         Log.d(TAG, "onClick: operator name save " + ed.getText());
                         Toast.makeText(getContext(), ed.getText(), Toast.LENGTH_LONG).show();
-                        listener.onEnterOperatorClick(OperatorDialog.this);
+                        if (listener != null) {
+                            listener.onEnterOperatorClick(OperatorDialog.this);
+                        }
+                        Bundle arg = new Bundle();
+                        arg.putString("yolo", "TESTING");
+                        setArguments(arg);
                     }
                 })
                 .setNegativeButton("cancel", new DialogInterface.OnClickListener() {

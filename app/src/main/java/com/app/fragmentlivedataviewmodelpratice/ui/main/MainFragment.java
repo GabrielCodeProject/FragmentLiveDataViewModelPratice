@@ -1,5 +1,6 @@
 package com.app.fragmentlivedataviewmodelpratice.ui.main;
 
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
@@ -46,15 +47,17 @@ public class MainFragment extends Fragment {
         mViewModel = new ViewModelProvider(this).get(MainViewModel.class);
         Button btnFragA = view.findViewById(R.id.btn_frag_a);
         Button btnFragB = view.findViewById(R.id.btn_frag_b);
-        setOnClick(btnFragA);
-        setOnClick(btnFragB);
-
         Button btnFragC = view.findViewById(R.id.btn_frag_c);
-        btnFragC.setOnClickListener(btnClickListener);
         Button btnFragD = view.findViewById(R.id.btn_frag_d);
+//        setOnClick(btnFragA);
+//        setOnClick(btnFragB);
+        btnFragA.setOnClickListener(btnClickListener);
+        btnFragB.setOnClickListener(btnClickListener);
+        btnFragC.setOnClickListener(btnClickListener);
         btnFragD.setOnClickListener(btnClickListener);
     }
 
+    //exemple de custom listener
     void setOnClick(Button btn) {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
